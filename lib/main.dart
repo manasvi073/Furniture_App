@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:furniture_app/firebase_options.dart';
 import 'package:furniture_app/screens/home_screen.dart';
 import 'package:furniture_app/screens/login_screen.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-// import 'firebase_options.dart';
 
-/*void main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
@@ -19,11 +19,13 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
   }
 
   runApp(const MyApp());
-}*/
+}
 
+/*
 void main() {
   runApp(const MyApp());
 }
+*/
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -34,8 +36,8 @@ class MyApp extends StatelessWidget {
 
     return const GetMaterialApp(
       title: 'Furniture App',
-      home: HomeScreen(),
-      // home: LoginScreen(),
+      // home: HomeScreen(),
+      home: LoginScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -15,10 +15,11 @@ class LoginScreen extends StatelessWidget {
     final TextEditingController emailcontroller = TextEditingController();
     final TextEditingController passwordcontroller = TextEditingController();
     final LoginController loginController = Get.put(LoginController());
+    final _formKey = GlobalKey<FormState>();
 
     return Scaffold(
       body: Form(
-        key: loginController.formkey,
+        key: _formKey,
         child: Stack(
           fit: StackFit.expand,
           children: [
@@ -98,10 +99,13 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   ButtonWidget(
-                    text: 'Login',
-                    onTap: () => loginController.SignInButton(
-                        emailcontroller.text, passwordcontroller.text),
-                  ),
+                      text: 'Login',
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          loginController.SignInButton(
+                              emailcontroller.text, passwordcontroller.text);
+                        }
+                      }),
                   const SizedBox(height: 20),
                   RichText(
                     text: TextSpan(
