@@ -21,23 +21,18 @@ void main() async {
   runApp(const MyApp());
 }
 
-/*
-void main() {
-  runApp(const MyApp());
-}
-*/
-
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+
+  const MyApp({super.key, this.isLoggedIn = false});
 
   @override
   Widget build(BuildContext context) {
-    // User? user = FirebaseAuth.instance.currentUser;
+    User? user = FirebaseAuth.instance.currentUser;
 
-    return const GetMaterialApp(
+    return GetMaterialApp(
       title: 'Furniture App',
-      // home: HomeScreen(),
-      home: LoginScreen(),
+      home: isLoggedIn ? const LoginScreen() : const HomeScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
