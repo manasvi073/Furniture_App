@@ -9,48 +9,32 @@ List<CategoryModel> categoryModelFromJson(String str) => List<CategoryModel>.fro
 String categoryModelToJson(List<CategoryModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class CategoryModel {
-  List<Category>? categories;
-
-  CategoryModel({
-    this.categories,
-  });
-
-  factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
-    categories: json["categories"] == null ? [] : List<Category>.from(json["categories"]!.map((x) => Category.fromJson(x))),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "categories": categories == null ? [] : List<dynamic>.from(categories!.map((x) => x.toJson())),
-  };
-}
-
-class Category {
   String? id;
   String? name;
   String? categoryType;
   String? description;
   String? price;
   String? image;
-  String? rant;
+  String? rating;
 
-  Category({
+  CategoryModel({
     this.id,
     this.name,
     this.categoryType,
     this.description,
     this.price,
     this.image,
-    this.rant,
+    this.rating,
   });
 
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
+  factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
     id: json["id"],
     name: json["name"],
     categoryType: json["categoryType"],
     description: json["description"],
     price: json["price"],
     image: json["Image"],
-    rant: json["rant"],
+    rating: json["rating"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -60,6 +44,6 @@ class Category {
     "description": description,
     "price": price,
     "Image": image,
-    "rant": rant,
+    "rating": rating,
   };
 }

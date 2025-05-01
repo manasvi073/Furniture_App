@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:furniture_app/constant/color_const.dart';
 import 'package:furniture_app/constant/image_const.dart';
 import 'package:furniture_app/controller/home_controller.dart';
+import 'package:furniture_app/model/category_model.dart';
+import 'package:furniture_app/screens/product_detail.dart';
 import 'package:furniture_app/widgets/textfield_widget.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -30,7 +33,7 @@ class HomeScreen extends StatelessWidget {
                   const Text(
                     'Discover The Best \nFurniture.',
                     style: TextStyle(
-                      color: ColorConst.appLightGreen,
+                      color: ColorConst.appGreen,
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
@@ -82,182 +85,54 @@ class HomeScreen extends StatelessWidget {
               const Text(
                 'Categories',
                 style: TextStyle(
-                  color: ColorConst.appLightGreen,
+                  color: ColorConst.appGreen,
                   fontWeight: FontWeight.w600,
                   fontSize: 20,
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               scrollText(['Chairs', 'Cupboard', 'Tables', 'Lamps', 'Sofa']),
-              const SizedBox(height: 10),
-        
-              /* SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: GridView(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 5,
-                    childAspectRatio: .75,
+              const SizedBox(height: 20),
+              Obx(
+                () => GestureDetector(
+                  onTap: ()=> Get.off(const ProductDetail()),
+                  child: SizedBox(
+
+                    height: 300,
+                    child: homeController.categoryList.isEmpty
+                        ? LoadingAnimationWidget.hexagonDots(
+                            color: ColorConst.appGray,
+                            size: 24,
+                          )
+                        : ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: homeController.categoryList.length,
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(width: 20),
+                          itemBuilder: (context, index) => _categoryCard(
+                              homeController.categoryList[index]),
+                        ),
                   ),
                 ),
-              ),*/
-        
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.only(right: 15),
-                itemCount: 6,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 15,
-                  childAspectRatio: 0.68,
-                ),
-                itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: ColorConst.appGray,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.all(12),
-                          height: 140,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: ColorConst.appBackColor,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Image.asset(
-                              ImageConst.appModernChair,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Text(
-                            'Modern Chair',
-                            style: TextStyle(
-                              color: ColorConst.appBlack,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Text(
-                            'Armchair',
-                            style: TextStyle(
-                              color: ColorConst.appGray,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                '₹ 12,500',
-                                style: TextStyle(
-                                  color: ColorConst.appBlack,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Container(
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: ColorConst.appLightGreen,
-                                ),
-                                padding: const EdgeInsets.all(6),
-                                child: const Icon(
-                                  Icons.add,
-                                  size: 18,
-                                  color: ColorConst.appWhite,
-                                  weight: 700,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
               ),
-        
-                Container(
-                width: 180,
-                decoration: BoxDecoration(
-                  color: ColorConst.appGray,
-                  // color: ColorConst.appWhite,
-                  borderRadius: BorderRadius.circular(12),
+              const SizedBox(height: 13),
+              const Text(
+                'Best Seller',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                  color: ColorConst.appGreen,
                 ),
-                child: Column(
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 12),
-                      height: 170,
-                      decoration: BoxDecoration(
-                        color: ColorConst.appBackColor,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Image.asset(
-                          ImageConst.appModernChair,
-                        ),
-                      ),
-                    ),
-                    const Text(
-                      'Modern Chair',
-                      style: TextStyle(
-                        color: ColorConst.appBlack,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const Text(
-                      'Armchair',
-                      style: TextStyle(
-                        color: ColorConst.appGray,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                      ),
-                    ),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '₹ 12,500',
-                          style: TextStyle(
-                            color: ColorConst.appBlack,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                          ),
-                        ),
-                        CircleAvatar(
-                          backgroundColor: ColorConst.appLightGreen,
-                          child: Icon(
-                            Icons.add,
-                            color: ColorConst.appWhite,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 300,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: homeController.categoryList.length,
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 20),
+                  itemBuilder: (context, index) => _seller(),
                 ),
               ),
             ],
@@ -280,7 +155,7 @@ class HomeScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: homeController.isSelected.value == i
-                        ? ColorConst.appLightGreen
+                        ? ColorConst.appGreen
                         : ColorConst.appLightWhite),
                 child: Padding(
                   padding: const EdgeInsets.only(
@@ -290,7 +165,7 @@ class HomeScreen extends StatelessWidget {
                     style: TextStyle(
                       color: homeController.isSelected.value == i
                           ? ColorConst.appLightWhite
-                          : ColorConst.appLightGreen,
+                          : ColorConst.appGreen,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -299,6 +174,308 @@ class HomeScreen extends StatelessWidget {
               ),
           ],
         ),
+      ),
+    );
+  }
+
+/*  Widget scrollText(List<String> text) {
+    final HomeController homeController = Get.find();
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Obx(
+        () => Row(
+          children: List.generate(text.length, (i) {
+            final isSelected = homeController.isSelected.value == i;
+            return GestureDetector(
+              onTap: () => homeController.filterCategory(i),
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: isSelected
+                      ? ColorConst.appGreen
+                      : ColorConst.appLightWhite,
+                ),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 21),
+                child: Text(
+                  text[i],
+                  style: TextStyle(
+                    color: isSelected
+                        ? ColorConst.appLightWhite
+                        : ColorConst.appGreen,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            );
+          }),
+        ),
+      ),
+    );
+  }*/
+
+  Widget _categoryCard(CategoryModel data) {
+    final HomeController homeController = Get.put(HomeController());
+
+    return Container(
+      width: 180,
+      decoration: BoxDecoration(
+        color: ColorConst.appWhite,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                height: 170,
+                decoration: BoxDecoration(
+                  color: ColorConst.appBackColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Image.asset(data.image!),
+                ),
+              ),
+              Positioned(
+                bottom: 15,
+                left: 20,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: ColorConst.appRed,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Text(
+                    'NEW',
+                    style: TextStyle(
+                      color: ColorConst.appWhite,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 15,
+                right: 20,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: ColorConst.appLightYellow,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.star,
+                          color: ColorConst.appYellow, size: 13),
+                      const SizedBox(width: 2),
+                      Text(
+                        data.rating!,
+                        style: const TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                          color: ColorConst.appYellow,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  data.name!,
+                  style: const TextStyle(
+                    color: ColorConst.appBlack,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  data.categoryType!,
+                  style: const TextStyle(
+                    color: ColorConst.appGray,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  data.price!,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: ColorConst.appBlack,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => homeController.decrement(),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: ColorConst.appGreen,
+                      shape: BoxShape.circle,
+                    ),
+                    padding: const EdgeInsets.all(6),
+                    child: const Icon(
+                      Icons.remove,
+                      color: ColorConst.appWhite,
+                      size: 16,
+                    ),
+                  ),
+                ),
+                Text('${homeController.count}'),
+                GestureDetector(
+                  onTap: () => homeController.increment(),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: ColorConst.appGreen,
+                      shape: BoxShape.circle,
+                    ),
+                    padding: const EdgeInsets.all(6),
+                    child: const Icon(
+                      Icons.add,
+                      color: ColorConst.appWhite,
+                      size: 16,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _seller() {
+    return Container(
+      width: 260,
+      decoration: BoxDecoration(
+        color: ColorConst.appWhite,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                // height: 170,
+                decoration: BoxDecoration(
+                  color: ColorConst.appBackColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Image.asset(
+                    ImageConst.appYellowChair,
+                    height: 55,
+                    width: 68,
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 15,
+                right: 20,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: ColorConst.appLightYellow,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(Icons.star, color: ColorConst.appYellow, size: 13),
+                      SizedBox(width: 2),
+                      Text(
+                        '4.5',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                          color: ColorConst.appYellow,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Yellow Chair',
+                  style: TextStyle(
+                    color: ColorConst.appBlack,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),
+                ),
+                const Text(
+                  'Armchair',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12,
+                  ),
+                ),
+                Row(
+                  children: [
+                    const Text(
+                      '₹ 10,500',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: ColorConst.appBlack,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 17),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: ColorConst.appGreen,
+                          shape: BoxShape.circle,
+                        ),
+                        padding: const EdgeInsets.all(6),
+                        child: const Icon(
+                          Icons.add,
+                          color: ColorConst.appWhite,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

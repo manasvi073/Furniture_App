@@ -5,6 +5,7 @@ class ImageConst {
   static const String iconPath = 'assets/icons/';
 
   static const String appLogo = '${imagepath}logo.jpg';
+  static const String appOvel = '${imagepath}ovel.png';
 
 // ====================== Icons =========================
 
