@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:furniture_app/controller/login_signup_controller.dart';
 import 'package:furniture_app/screens/login_screen.dart';
 import 'package:furniture_app/validation/app_validation.dart';
-import 'package:furniture_app/widgets/button_widget.dart';
+import 'package:furniture_app/widgets/app_button_widget.dart';
 import 'package:furniture_app/widgets/textfield_widget.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';

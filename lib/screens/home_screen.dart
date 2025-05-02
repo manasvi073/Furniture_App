@@ -3,7 +3,11 @@ import 'package:furniture_app/constant/color_const.dart';
 import 'package:furniture_app/constant/image_const.dart';
 import 'package:furniture_app/controller/home_controller.dart';
 import 'package:furniture_app/model/category_model.dart';
+import 'package:furniture_app/screens/cart_screen.dart';
+import 'package:furniture_app/screens/favorite_screen.dart';
 import 'package:furniture_app/screens/product_detail.dart';
+import 'package:furniture_app/screens/profile_screen.dart';
+import 'package:furniture_app/widgets/app_bottom_navigation_widget.dart';
 import 'package:furniture_app/widgets/textfield_widget.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -148,7 +152,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      // bottomNavigationBar: BottomNavigationBar(items: [],),
+      bottomNavigationBar: AppBottomNavigationWidget(),
     );
   }
 

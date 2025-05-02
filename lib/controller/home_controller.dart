@@ -7,11 +7,17 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   var isSelected = 0.obs;
+  var selected = 0.obs;
   var categoryList = <CategoryModel>[].obs;
   var count = 0.obs;
 
+
   void onTab(int index) {
     isSelected.value = index;
+  }
+
+  void selectIcon(int index) {
+    selected.value = index;
   }
 
   void increment() {
