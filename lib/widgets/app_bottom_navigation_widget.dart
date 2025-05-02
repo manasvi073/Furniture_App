@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/constant/color_const.dart';
 import 'package:furniture_app/controller/home_controller.dart';
-import 'package:furniture_app/screens/cart_screen.dart';
-import 'package:furniture_app/screens/favorite_screen.dart';
-import 'package:furniture_app/screens/home_screen.dart';
-import 'package:furniture_app/screens/profile_screen.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 class AppBottomNavigationWidget extends StatelessWidget {
-  final HomeController homeController = Get.put(HomeController());
+  const AppBottomNavigationWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.put(HomeController());
     return Obx(
       () => BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: ColorConst.appGreen,
-        unselectedItemColor: ColorConst.appGray,
+        unselectedItemColor: ColorConst.appGreen,
         currentIndex: homeController.selected.value,
         onTap: homeController.selectIcon,
         items: [

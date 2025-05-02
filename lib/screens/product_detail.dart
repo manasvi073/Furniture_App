@@ -3,6 +3,7 @@ import 'package:furniture_app/constant/color_const.dart';
 import 'package:furniture_app/constant/image_const.dart';
 import 'package:furniture_app/controller/home_controller.dart';
 import 'package:furniture_app/model/category_model.dart';
+import 'package:furniture_app/screens/cart_screen.dart';
 import 'package:furniture_app/screens/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -226,7 +227,9 @@ class ProductDetail extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30)),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.off(() => const CartScreen());
+                              },
                               child: Text(
                                 "Add to cart | ${productData.price ?? ''}",
                                 style: const TextStyle(
