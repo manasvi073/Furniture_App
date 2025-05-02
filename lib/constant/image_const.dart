@@ -19,4 +19,8 @@ class ImageConst {
       '$imageChairPath/minimalist_chair.png';
   static const String appModernChair = '$imageChairPath/modern_chair.png';
   static const String appYellowChair = '$imageChairPath/yellow_chair.png';
+  static const String appModernChair1 = '$imageChairPath/modernchair1.png';
+  static const String appModernChair2 = '$imageChairPath/modernchair2.png';
+  static const String appModernChair3 = '$imageChairPath/modernchair3.png';
+
 }

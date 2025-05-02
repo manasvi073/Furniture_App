@@ -17,87 +17,91 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 15, bottom: 15, left: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Image.asset(
-                    ImageConst.appLogo,
-                    height: 60,
-                    width: 60,
-                  ),
-                  const SizedBox(width: 10),
-                  const Text(
-                    'Discover The Best \nFurniture.',
-                    style: TextStyle(
-                      color: ColorConst.appGreen,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
+        child: Center(
+          child: /* homeController.categoryList.isEmpty
+              ? LoadingAnimationWidget.hexagonDots(
+                  color: ColorConst.appGray,
+                  size: 24,
+                )
+              : */
               Padding(
-                padding: const EdgeInsets.only(right: 20),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'Search for furniture',
-                    hintStyle:
-                        const TextStyle(color: Colors.black38, fontSize: 13),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+            padding: const EdgeInsets.only(top: 15, bottom: 15, left: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Image.asset(
+                      ImageConst.appLogo,
+                      height: 60,
+                      width: 60,
                     ),
-                    focusColor: Colors.transparent,
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide:
-                            const BorderSide(color: ColorConst.appLightGray)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide:
-                            const BorderSide(color: ColorConst.appLightGray)),
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Image.asset(
-                        ImageConst.appSearch,
-                        height: 17,
-                        width: 17,
+                    const SizedBox(width: 10),
+                    const Text(
+                      'Discover The Best \nFurniture.',
+                      style: TextStyle(
+                        color: ColorConst.appGreen,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Image.asset(
-                        ImageConst.appListIcon,
-                        height: 20,
-                        width: 20,
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Search for furniture',
+                      hintStyle:
+                          const TextStyle(color: Colors.black38, fontSize: 13),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
                       ),
+                      focusColor: Colors.transparent,
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide:
+                              const BorderSide(color: ColorConst.appLightGray)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide:
+                              const BorderSide(color: ColorConst.appLightGray)),
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Image.asset(
+                          ImageConst.appSearch,
+                          height: 17,
+                          width: 17,
+                        ),
+                      ),
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Image.asset(
+                          ImageConst.appListIcon,
+                          height: 20,
+                          width: 20,
+                        ),
+                      ),
+                      filled: true,
+                      fillColor: Colors.transparent,
                     ),
-                    filled: true,
-                    fillColor: Colors.transparent,
                   ),
                 ),
-              ),
-              const SizedBox(height: 13),
-              const Text(
-                'Categories',
-                style: TextStyle(
-                  color: ColorConst.appGreen,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
+                const SizedBox(height: 13),
+                const Text(
+                  'Categories',
+                  style: TextStyle(
+                    color: ColorConst.appGreen,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              scrollText(['Chairs', 'Cupboard', 'Tables', 'Lamps', 'Sofa']),
-              const SizedBox(height: 20),
-              Obx(
-                () => GestureDetector(
-                  onTap: ()=> Get.off(const ProductDetail()),
-                  child: SizedBox(
-
+                const SizedBox(height: 20),
+                scrollText(['Chairs', 'Cupboard', 'Tables', 'Lamps', 'Sofa']),
+                const SizedBox(height: 20),
+                Obx(
+                  () => SizedBox(
                     height: 300,
                     child: homeController.categoryList.isEmpty
                         ? LoadingAnimationWidget.hexagonDots(
@@ -105,40 +109,46 @@ class HomeScreen extends StatelessWidget {
                             size: 24,
                           )
                         : ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: homeController.categoryList.length,
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(width: 20),
-                          itemBuilder: (context, index) => _categoryCard(
-                              homeController.categoryList[index]),
-                        ),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: homeController.categoryList.length,
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(width: 20),
+                            itemBuilder: (context, index) => GestureDetector(
+                              onTap: () => Get.off(ProductDetail(
+                                productData: homeController.categoryList[index],
+                              )),
+                              child: _categoryCard(
+                                  homeController.categoryList[index]),
+                            ),
+                          ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 13),
-              const Text(
-                'Best Seller',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
-                  color: ColorConst.appGreen,
+                const SizedBox(height: 13),
+                const Text(
+                  'Best Seller',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                    color: ColorConst.appGreen,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                height: 300,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: homeController.categoryList.length,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 20),
-                  itemBuilder: (context, index) => _seller(),
+                const SizedBox(height: 20),
+                SizedBox(
+                  height: 300,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: homeController.categoryList.length,
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(width: 20),
+                    itemBuilder: (context, index) => _seller(),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
+      // bottomNavigationBar: BottomNavigationBar(items: [],),
     );
   }
 
@@ -177,45 +187,6 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
-/*  Widget scrollText(List<String> text) {
-    final HomeController homeController = Get.find();
-
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Obx(
-        () => Row(
-          children: List.generate(text.length, (i) {
-            final isSelected = homeController.isSelected.value == i;
-            return GestureDetector(
-              onTap: () => homeController.filterCategory(i),
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: isSelected
-                      ? ColorConst.appGreen
-                      : ColorConst.appLightWhite,
-                ),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 21),
-                child: Text(
-                  text[i],
-                  style: TextStyle(
-                    color: isSelected
-                        ? ColorConst.appLightWhite
-                        : ColorConst.appGreen,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            );
-          }),
-        ),
-      ),
-    );
-  }*/
 
   Widget _categoryCard(CategoryModel data) {
     final HomeController homeController = Get.put(HomeController());

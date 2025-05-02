@@ -3,36 +3,56 @@
     "id": "1",
     "name": "Modern Chair",
     "categoryType": "Armchair",
-    "description": "The simple and elegant shape makes it very \nsuitable for those for you who like those of you\nwho wants a minimalist room",
+    "description": "The simple and elegant shape makes it very suitable for those for you who like those of you who wants a minimalist room",
     "price": "₹ 12,500",
     "Image": "assets/images/chairs/modern_chair.png",
-    "rating": "4.8"
+    "rating": "4.8",
+    "subImages": [
+      "assets/images/chairs/modernchair1.png",
+      "assets/images/chairs/modernchair2.png",
+      "assets/images/chairs/modernchair3.png"
+    ]
   },
   {
     "id": "2",
     "name": "Minimalist Chair",
     "categoryType": "Armchair",
-    "description": "The simple and elegant shape makes it very \nsuitable for those for you who like those of you\nwho wants a minimalist room",
+    "description": "The simple and elegant shape makes it very suitable for those for you who like those of you who wants a minimalist room",
     "price": "₹ 8,300",
     "Image": "assets/images/chairs/minimalist_chair.png",
-    "rating": "4.0"
+    "rating": "4.0",
+    "subImages": [
+      "assets/images/chairs/modernchair1.png",
+      "assets/images/chairs/modernchair2.png",
+      "assets/images/chairs/modernchair3.png"
+    ]
   },
   {
     "id": "3",
     "name": "Brown Chair",
     "categoryType": "Armchair",
-    "description": "The simple and elegant shape makes it very \nsuitable for those for you who like those of you\nwho wants a minimalist room",
+    "description": "The simple and elegant shape makes it very suitable for those for you who like those of you who wants a minimalist room",
     "price": "₹ 7,000",
     "Image": "assets/images/chairs/brown_chair.png",
-    "rating": "5.0"
+    "rating": "5.0",
+    "subImages": [
+      "assets/images/chairs/brown_chair.png",
+      "assets/images/chairs/brown_chair.png",
+      "assets/images/chairs/brown_chair.png"
+    ]
   },
   {
     "id": "4",
     "name": "Yellow Chair",
     "categoryType": "Armchair",
-    "description": "The simple and elegant shape makes it very \nsuitable for those for you who like those of you\nwho wants a minimalist room",
+    "description": "The simple and elegant shape makes it very suitable for those for you who like those of you who wants a minimalist room",
     "price": "₹ 10,500",
     "Image": "assets/images/chairs/yellow_chair.png",
-    "rating": "4.5"
+    "rating": "4.5",
+    "subImages": [
+      "assets/images/chairs/modernchair1.png",
+      "assets/images/chairs/modernchair2.png",
+      "assets/images/chairs/modernchair3.png"
+    ]
   }
 ]
