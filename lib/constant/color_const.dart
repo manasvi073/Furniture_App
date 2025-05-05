@@ -10,8 +10,12 @@ class ColorConst {
 
   static const appBlack = Color(0xff000000);
 
+  static const appBlue = Color(0xff008BD9);
+
   static const appRed = Color(0xffFF0404);
 
   static const appYellow = Color(0xffF4BB00);
+  static const appDarkYellow = Color(0xffFD9F12);
+
   static const appLightYellow = Color(0xffFBE7A0);
 }

@@ -9,9 +9,9 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ProductDetail extends StatelessWidget {
-  final CategoryModel productData;
+  final CategoryModel? productData;
 
-  const ProductDetail({super.key, required this.productData});
+  const ProductDetail({super.key, this.productData});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class ProductDetail extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorConst.appLightWhite,
       body: SafeArea(
-        child: productData.id!.isEmpty
+        child: productData!.id!.isEmpty
             ? LoadingAnimationWidget.hexagonDots(
                 color: ColorConst.appGray, size: 24)
             : SingleChildScrollView(
@@ -77,7 +77,7 @@ class ProductDetail extends StatelessWidget {
                         Positioned(
                           bottom: 90,
                           child: Image.asset(
-                            productData.image ?? '',
+                            productData!.image ?? '',
                             height: 180,
                             width: 180,
                             fit: BoxFit.contain,
@@ -94,7 +94,7 @@ class ProductDetail extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                productData.name ?? '',
+                                productData!.name ?? '',
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
@@ -118,7 +118,7 @@ class ProductDetail extends StatelessWidget {
                                     ),
                                     const SizedBox(width: 2),
                                     Text(
-                                      productData.rating ?? '',
+                                      productData!.rating ?? '',
                                       style: const TextStyle(
                                         fontSize: 10,
                                         color: ColorConst.appYellow,
@@ -131,13 +131,13 @@ class ProductDetail extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            productData.categoryType ?? '',
+                            productData!.categoryType ?? '',
                             style: const TextStyle(
                                 color: ColorConst.appGray, fontSize: 12),
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            productData.description ?? '',
+                            productData!.description ?? '',
                             style: const TextStyle(
                               color: ColorConst.appGray,
                               fontSize: 15,
@@ -148,12 +148,12 @@ class ProductDetail extends StatelessWidget {
                           Row(
                             children: [
                               for (int i = 0;
-                                  i < (productData.subImages?.length ?? 0);
+                                  i < (productData!.subImages?.length ?? 0);
                                   i++)
                                 Padding(
                                   padding: const EdgeInsets.only(right: 10),
                                   child: Image.asset(
-                                    productData.subImages![i],
+                                    productData!.subImages![i],
                                     height: 50,
                                     width: 50,
                                   ),
@@ -231,7 +231,7 @@ class ProductDetail extends StatelessWidget {
                                 Get.off(() => const CartScreen());
                               },
                               child: Text(
-                                "Add to cart | ${productData.price ?? ''}",
+                                "Add to cart | ${productData!.price ?? ''}",
                                 style: const TextStyle(
                                   fontSize: 16,
                                   color: ColorConst.appWhite,

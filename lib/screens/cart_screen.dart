@@ -179,10 +179,12 @@ class CartScreen extends StatelessWidget {
 }
 */
 
-
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:furniture_app/constant/color_const.dart';
 import 'package:furniture_app/constant/image_const.dart';
+import 'package:furniture_app/screens/product_detail.dart';
+import 'package:get/get.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -192,8 +194,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  // This list holds the checked state for each item
-  List<bool> isCheckedList = List.generate(4, (index) => true); // default all true
+  List<bool> isCheckedList = List.generate(3, (index) => true);
 
   @override
   Widget build(BuildContext context) {
@@ -202,16 +203,21 @@ class _CartScreenState extends State<CartScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CircleAvatar(
-                    backgroundColor: ColorConst.appWhite,
-                    child: Icon(
-                      Icons.keyboard_arrow_left,
-                      color: ColorConst.appGreen,
+                  GestureDetector(
+                    onTap: () {
+                      // Get.offAll(ProductDetail());
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: ColorConst.appWhite,
+                      child: Icon(
+                        Icons.keyboard_arrow_left,
+                        color: ColorConst.appGreen,
+                      ),
                     ),
                   ),
                   Text(
@@ -240,6 +246,31 @@ class _CartScreenState extends State<CartScreen> {
                 },
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: ColorConst.appGreen,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  onPressed: () {
+                    // Get.off(() => const CartScreen());
+                  },
+                  child: Text(
+                    "Proceed to checkout",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: ColorConst.appWhite,
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
