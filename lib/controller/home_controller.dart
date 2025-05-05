@@ -11,6 +11,16 @@ class HomeController extends GetxController {
   var categoryList = <CategoryModel>[].obs;
   var count = 0.obs;
 
+  var filteredCategoryList = <CategoryModel>[].obs;
+
+  void filterCategory(String selectedCategory) {
+    isSelected.value = categoryNames.indexOf(selectedCategory);
+    filteredCategoryList.value = categoryList
+        .where((item) => item.categoryType == selectedCategory)
+        .toList();
+  }
+
+  List<String> categoryNames = ['Chairs', 'Cupboard', 'Tables', 'Lamps', 'Sofa'];
 
   void onTab(int index) {
     isSelected.value = index;
@@ -47,6 +57,7 @@ class HomeController extends GetxController {
 
       categoryList.value =
           data.map((json) => CategoryModel.fromJson(json)).toList();
+      filterCategory(categoryNames[0]);
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
       log('Error -> $e');

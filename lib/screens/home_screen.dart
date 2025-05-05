@@ -501,7 +501,7 @@ class HomeScreen extends StatelessWidget {
     return SingleChildScrollView(
       child: Center(
         child:
-        /* homeController.categoryList.isEmpty
+            /* homeController.categoryList.isEmpty
               ? LoadingAnimationWidget.hexagonDots(
                   color: ColorConst.appGray,
                   size: 24,

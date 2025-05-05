@@ -54,5 +54,19 @@
       "assets/images/chairs/modernchair2.png",
       "assets/images/chairs/modernchair3.png"
     ]
+  },
+  {
+    "id": "5",
+    "name": "table",
+    "categoryType": "Armchair",
+    "description": "The simple and elegant shape makes it very suitable for those for you who like those of you who wants a minimalist room",
+    "price": "₹ 10,500",
+    "Image": "assets/images/chairs/table.jpeg",
+    "rating": "4.5",
+    "subImages": [
+      "assets/images/chairs/modernchair1.png",
+      "assets/images/chairs/modernchair2.png",
+      "assets/images/chairs/modernchair3.png"
+    ]
   }
 ]
