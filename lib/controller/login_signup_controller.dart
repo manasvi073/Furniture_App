@@ -19,6 +19,12 @@ class LoginController extends GetxController {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  /*final user = FirebaseAuth.instance.currentUser;
+
+  String get userName => user?.displayName ?? 'No Name';
+
+  String get userEmail => user?.email ?? 'No Email';
+*/
   void show() {
     obscureText.value = !obscureText.value;
   }
@@ -132,21 +138,15 @@ class LoginController extends GetxController {
     }
   }
 
-/* void logoutButton() async {
-    FirebaseAuthService authService = FirebaseAuthService();
-    authService.signOut();
-    Fluttertoast.showToast(msg: 'Signed out successfully!');
-    Get.off(() => const LoginScreen());
-  }
-*/
-
-/*void loadProfile() {
+  void logoutButton() async {
     try {
-      CollectionReference profileRef =
-          FirebaseFirestore.instance.collection('users').doc(userId);
+      await _auth.signOut();
+      Fluttertoast.showToast(msg: 'Signed out successfully!');
+      Get.offAll(() => const LoginScreen());
     } catch (e) {
-      Fluttertoast.showToast(msg: e.toString());
-      log('Error -> $e');
+      Fluttertoast.showToast(msg: 'Logout failed: $e');
+      log('Logout Error -> $e');
     }
-  }*/
+  }
 }
+//when i logout then run open login screen

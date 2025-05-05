@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:furniture_app/constant/color_const.dart';
+import 'package:furniture_app/controller/login_signup_controller.dart';
 import 'package:furniture_app/screens/login_screen.dart';
 import 'package:furniture_app/screens/privacy_policy_screen.dart';
 import 'package:get/get.dart';
@@ -9,17 +10,10 @@ import 'package:get/get_core/src/get_main.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
-/*
-  void logoutButton() async {
-    FirebaseAuthService authService = FirebaseAuthService();
-    authService.signOut();
-    Fluttertoast.showToast(msg: 'Signed out successfully!');
-    Get.off(() => LoginScreen());
-  }
-*/
-
   @override
   Widget build(BuildContext context) {
+    final LoginController loginController = Get.put(LoginController());
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -43,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const Text(
-                    'Name',
+                    'loginController.userName',
                     style: TextStyle(
                       color: ColorConst.appGreen,
                       fontWeight: FontWeight.w600,
@@ -51,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const Text(
-                    'Email',
+                    'loginController.userEmail',
                     style: TextStyle(
                       color: ColorConst.appGreen,
                       fontSize: 10,
@@ -180,21 +174,26 @@ class ProfileScreen extends StatelessWidget {
                                       ),
                                     ),
                                     const Spacer(),
-                                    Container(
-                                      height: 50,
-                                      width: 165,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: ColorConst.appGreen
-                                            .withOpacity(0.1),
-                                      ),
-                                      child: const Center(
-                                        child: Text(
-                                          'Yes, Logout',
-                                          style: TextStyle(
-                                            color: ColorConst.appGreen,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
+                                    GestureDetector(
+                                      onTap: () =>
+                                          loginController.logoutButton(),
+                                      child: Container(
+                                        height: 50,
+                                        width: 165,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          color: ColorConst.appGreen
+                                              .withOpacity(0.1),
+                                        ),
+                                        child: const Center(
+                                          child: Text(
+                                            'Yes, Logout',
+                                            style: TextStyle(
+                                              color: ColorConst.appGreen,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
                                         ),
                                       ),

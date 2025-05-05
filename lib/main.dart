@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       title: 'Furniture App',
-      home: isLoggedIn ? const LoginScreen() : const HomeScreen(),
+      home: user == null ? const LoginScreen() : const HomeScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -1,9 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:furniture_app/constant/color_const.dart';
 import 'package:furniture_app/controller/home_controller.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:ui' as ui;
 import 'dart:html' as html;
