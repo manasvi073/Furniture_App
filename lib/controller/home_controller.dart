@@ -1,26 +1,20 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:furniture_app/model/category_model.dart';
 import 'package:get/get.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class HomeController extends GetxController {
   var isSelected = 0.obs;
   var selected = 0.obs;
   var categoryList = <CategoryModel>[].obs;
   var count = 0.obs;
+  var url;
 
-  var filteredCategoryList = <CategoryModel>[].obs;
-
-  void filterCategory(String selectedCategory) {
-    isSelected.value = categoryNames.indexOf(selectedCategory);
-    filteredCategoryList.value = categoryList
-        .where((item) => item.categoryType == selectedCategory)
-        .toList();
-  }
-
-  List<String> categoryNames = ['Chairs', 'Cupboard', 'Tables', 'Lamps', 'Sofa'];
+  late final WebViewController controller;
 
   void onTab(int index) {
     isSelected.value = index;
@@ -46,6 +40,12 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     loadCategory();
+
+    if (!kIsWeb) {
+      controller = WebViewController()
+        ..setJavaScriptMode(JavaScriptMode.unrestricted)
+        ..loadRequest(Uri.parse(url));
+    }
   }
 
   Future<void> loadCategory() async {
@@ -57,7 +57,6 @@ class HomeController extends GetxController {
 
       categoryList.value =
           data.map((json) => CategoryModel.fromJson(json)).toList();
-      filterCategory(categoryNames[0]);
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
       log('Error -> $e');

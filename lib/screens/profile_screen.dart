@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:furniture_app/constant/color_const.dart';
+import 'package:furniture_app/screens/login_screen.dart';
+import 'package:furniture_app/screens/privacy_policy_screen.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
+
+/*
+  void logoutButton() async {
+    FirebaseAuthService authService = FirebaseAuthService();
+    authService.signOut();
+    Fluttertoast.showToast(msg: 'Signed out successfully!');
+    Get.off(() => LoginScreen());
+  }
+*/
 
   @override
   Widget build(BuildContext context) {
@@ -84,13 +98,16 @@ class ProfileScreen extends StatelessWidget {
                   fontSize: 16,
                 ),
               ),
-              _profileContent(
-                  'Privacy & Policy',
-                  const Icon(
-                    Icons.lock_outline_rounded,
-                    color: ColorConst.appBlue,
-                  ),
-                  ColorConst.appBlue),
+              GestureDetector(
+                onTap: () => Get.off(() => const PrivacyPolicyScreen()),
+                child: _profileContent(
+                    'Privacy & Policy',
+                    const Icon(
+                      Icons.lock_outline_rounded,
+                      color: ColorConst.appBlue,
+                    ),
+                    ColorConst.appBlue),
+              ),
               _profileContent(
                   'Terms & Conditions',
                   const Icon(
@@ -98,13 +115,108 @@ class ProfileScreen extends StatelessWidget {
                     color: ColorConst.appYellow,
                   ),
                   ColorConst.appYellow),
-              _profileContent(
-                'Log Out',
-                const Icon(
-                  Icons.logout,
-                  color: ColorConst.appRed,
+              GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return SizedBox(
+                        height: 230,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            const Spacer(),
+                            const Text(
+                              'Log Out',
+                              style: TextStyle(
+                                color: ColorConst.appGreen,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 17),
+                            Divider(
+                              color: ColorConst.appBlack.withOpacity(0.1),
+                              indent: 30,
+                              endIndent: 30,
+                            ),
+                            const SizedBox(height: 17),
+                            const Text(
+                              'Are you sure you want to log out?',
+                              style: TextStyle(
+                                color: ColorConst.appGreen,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 25),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: 50,
+                                      width: 165,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        color: ColorConst.appGreen
+                                            .withOpacity(0.1),
+                                      ),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text(
+                                          'Cancel',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontFamily: 'poppins',
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                              color: ColorConst.appGreen),
+                                        ),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Container(
+                                      height: 50,
+                                      width: 165,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        color: ColorConst.appGreen
+                                            .withOpacity(0.1),
+                                      ),
+                                      child: const Center(
+                                        child: Text(
+                                          'Yes, Logout',
+                                          style: TextStyle(
+                                            color: ColorConst.appGreen,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+                child: _profileContent(
+                  'Log Out',
+                  const Icon(
+                    Icons.logout,
+                    color: ColorConst.appRed,
+                  ),
+                  ColorConst.appRed,
                 ),
-                ColorConst.appRed,
               ),
             ],
           ),

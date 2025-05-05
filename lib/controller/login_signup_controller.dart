@@ -15,7 +15,7 @@ class LoginController extends GetxController {
   var obscureText = true.obs;
   var confirmPasswordObscureText = true.obs;
   File? selectedImage;
-
+  String? userId;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -119,12 +119,11 @@ class LoginController extends GetxController {
     }
   }
 
-
   Future<String> uploadImage(File image) async {
     try {
       String imageName = DateTime.now().millisecondsSinceEpoch.toString();
       var storageRef =
-      FirebaseStorage.instance.ref().child('profileimages/$imageName');
+          FirebaseStorage.instance.ref().child('profileimages/$imageName');
       var uploadTask = storageRef.putFile(image);
       var downloadUrl = await (await uploadTask).ref.getDownloadURL();
       return downloadUrl;
@@ -133,5 +132,21 @@ class LoginController extends GetxController {
     }
   }
 
+/* void logoutButton() async {
+    FirebaseAuthService authService = FirebaseAuthService();
+    authService.signOut();
+    Fluttertoast.showToast(msg: 'Signed out successfully!');
+    Get.off(() => const LoginScreen());
+  }
+*/
 
+/*void loadProfile() {
+    try {
+      CollectionReference profileRef =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
+      log('Error -> $e');
+    }
+  }*/
 }
