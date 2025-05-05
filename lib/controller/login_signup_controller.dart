@@ -149,4 +149,3 @@ class LoginController extends GetxController {
     }
   }
 }
-//when i logout then run open login screen

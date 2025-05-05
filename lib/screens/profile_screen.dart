@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:furniture_app/constant/color_const.dart';
 import 'package:furniture_app/controller/login_signup_controller.dart';
-import 'package:furniture_app/screens/login_screen.dart';
 import 'package:furniture_app/screens/privacy_policy_screen.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

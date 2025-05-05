@@ -1,190 +1,6 @@
-/*
 import 'package:flutter/material.dart';
 import 'package:furniture_app/constant/color_const.dart';
 import 'package:furniture_app/constant/image_const.dart';
-
-class CartScreen extends StatelessWidget {
-  const CartScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorConst.appBackColor,
-      body: SafeArea(
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: ColorConst.appWhite,
-                    child: Icon(
-                      Icons.keyboard_arrow_left,
-                      color: ColorConst.appGreen,
-                    ),
-                  ),
-                  Text(
-                    'Cart',
-                    style: TextStyle(
-                      color: ColorConst.appGreen,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  CircleAvatar(
-                    backgroundColor: ColorConst.appWhite,
-                    child: Icon(Icons.delete_outline_outlined,
-                        color: ColorConst.appGreen),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.all(15),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return _cartProduct();
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _cartProduct() {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 15),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: ColorConst.appWhite,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Checkbox(
-                value: true,
-                onChanged: (val) {},
-                activeColor: ColorConst.appGreen,
-              ),
-              const SizedBox(width: 10),
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorConst.appBackColor,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                padding: const EdgeInsets.all(12),
-                child: Image.asset(
-                  ImageConst.appYellowChair,
-                  height: 65,
-                  width: 78,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Yellow Chair',
-                    style: TextStyle(
-                      color: ColorConst.appBlack,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const Text(
-                    'Armchair',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12,
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        '₹ 10,500',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: ColorConst.appBlack,
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(3),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: ColorConst.appBackColor,
-                        ),
-                        child: Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: ColorConst.appWhite,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: const Icon(Icons.remove,
-                                    size: 18, color: ColorConst.appGreen),
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            const Text(
-                              "1",
-                              style: TextStyle(
-                                color: ColorConst.appGreen,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: ColorConst.appWhite,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: const Icon(Icons.add,
-                                    size: 18, color: ColorConst.appGreen),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-*/
-
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:furniture_app/constant/color_const.dart';
-import 'package:furniture_app/constant/image_const.dart';
-import 'package:furniture_app/screens/product_detail.dart';
-import 'package:get/get.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -204,7 +20,7 @@ class _CartScreenState extends State<CartScreen> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -212,7 +28,7 @@ class _CartScreenState extends State<CartScreen> {
                     onTap: () {
                       // Get.offAll(ProductDetail());
                     },
-                    child: CircleAvatar(
+                    child: const CircleAvatar(
                       backgroundColor: ColorConst.appWhite,
                       child: Icon(
                         Icons.keyboard_arrow_left,
@@ -220,7 +36,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                     ),
                   ),
-                  Text(
+                  const Text(
                     'Cart',
                     style: TextStyle(
                       color: ColorConst.appGreen,
@@ -228,7 +44,7 @@ class _CartScreenState extends State<CartScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  CircleAvatar(
+                  const CircleAvatar(
                     backgroundColor: ColorConst.appWhite,
                     child: Icon(Icons.delete_outline_outlined,
                         color: ColorConst.appGreen),
@@ -261,9 +77,9 @@ class _CartScreenState extends State<CartScreen> {
                   onPressed: () {
                     // Get.off(() => const CartScreen());
                   },
-                  child: Text(
+                  child: const Text(
                     "Proceed to checkout",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       color: ColorConst.appWhite,
                     ),

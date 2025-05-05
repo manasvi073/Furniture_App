@@ -25,17 +25,3 @@ String? passwordValidation(String? password) {
   }
   return null;
 }
-
-/*String? confirmPasswordValidation(String? confirmPassword, String password) {
-  String? passwordError = passwordValidation(password);
-  if (passwordError != null) {
-    return passwordError;
-  }
-  if (confirmPassword == null || confirmPassword.isEmpty) {
-    return 'Please enter your confirm password';
-  }
-  if (confirmPassword != password) {
-    return 'Confirm password does not match';
-  }
-  return null;
-}*/

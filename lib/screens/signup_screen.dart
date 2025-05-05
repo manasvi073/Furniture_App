@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:furniture_app/controller/login_signup_controller.dart';
@@ -51,7 +50,8 @@ class SignupScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-/*
+/* ===========================  Image Picker ===================================
+
                   GestureDetector(
                     onTap: () async {
                       final pickedFile = await _picker.pickImage(
