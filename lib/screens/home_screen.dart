@@ -452,7 +452,7 @@ class HomeScreen extends StatelessWidget {
                 Text(
                   sellerData.categoryType!,
                   style: const TextStyle(
-                    color: Colors.grey,
+                    color: ColorConst.appGray,
                     fontSize: 12,
                   ),
                 ),
