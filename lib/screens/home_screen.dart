@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/constant/color_const.dart';
 import 'package:furniture_app/constant/image_const.dart';
+import 'package:furniture_app/controller/best_sellers.dart';
 import 'package:furniture_app/controller/home_controller.dart';
 import 'package:furniture_app/model/category_model.dart';
 import 'package:furniture_app/screens/favorite_screen.dart';
@@ -155,10 +156,11 @@ class HomeScreen extends StatelessWidget {
                 height: 300,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  itemCount: homeController.categoryList.length,
+                  itemCount: homeController.sellersList.length,
                   separatorBuilder: (context, index) =>
                       const SizedBox(width: 20),
-                  itemBuilder: (context, index) => _seller(),
+                  itemBuilder: (context, index) =>
+                      _seller(homeController.sellersList[index]),
                 ),
               ),
             ],
@@ -206,7 +208,6 @@ class HomeScreen extends StatelessWidget {
 
   static Widget _categoryCard(CategoryModel data) {
     final HomeController homeController = Get.put(HomeController());
-
     final String? productId = data.id;
 
     return Container(
@@ -374,7 +375,10 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  static Widget _seller() {
+  static Widget _seller(BestSellersModel sellerData) {
+    final HomeController homeController = Get.put(HomeController());
+    // final String? productId = data.id;
+
     return Container(
       width: 260,
       decoration: BoxDecoration(
@@ -397,7 +401,7 @@ class HomeScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: Image.asset(
-                    ImageConst.appYellowChair,
+                    sellerData.image!,
                     height: 55,
                     width: 68,
                   ),
@@ -413,13 +417,14 @@ class HomeScreen extends StatelessWidget {
                     color: ColorConst.appLightYellow,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Row(
+                  child: Row(
                     children: [
-                      Icon(Icons.star, color: ColorConst.appYellow, size: 13),
-                      SizedBox(width: 2),
+                      const Icon(Icons.star,
+                          color: ColorConst.appYellow, size: 13),
+                      const SizedBox(width: 2),
                       Text(
-                        '4.5',
-                        style: TextStyle(
+                        sellerData.rating!,
+                        style: const TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w400,
                           color: ColorConst.appYellow,
@@ -436,17 +441,17 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Yellow Chair',
-                  style: TextStyle(
+                Text(
+                  sellerData.name!,
+                  style: const TextStyle(
                     color: ColorConst.appBlack,
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
                   ),
                 ),
-                const Text(
-                  'Armchair',
-                  style: TextStyle(
+                Text(
+                  sellerData.categoryType!,
+                  style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 12,
                   ),
@@ -478,6 +483,75 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+
+               /* Obx(() {
+                  /*   final count =
+                      homeController.productCounts[productId] ?? 0.obs;*/
+                  return Row(
+                    children: [
+                      Text(
+                        sellerData.price!,
+                        // data.price!,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: ColorConst.appBlack,
+                        ),
+                      ),
+                      const Spacer(),
+                      // if (count.value > 0) ...[
+                      Container(
+                        height: 24,
+                        width: 24,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: ColorConst.appWhite,
+                          border: Border.all(color: ColorConst.appLightGray),
+                        ),
+                        child: IconButton(
+                          onPressed: () {},
+                          // homeController.decrement(productId!),
+                          padding: EdgeInsets.zero,
+                          icon: const Icon(
+                            Icons.remove,
+                            color: ColorConst.appGray,
+                            size: 16,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 7),
+                      const Text(
+                        '{count.value}',
+                        style: TextStyle(
+                          color: ColorConst.appBlack,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'poppins',
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      // ],
+                      Container(
+                        height: 24,
+                        width: 24,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: ColorConst.appGreen,
+                        ),
+                        child: IconButton(
+                          onPressed: () {},
+                          // homeController.increment(productId!),
+                          padding: EdgeInsets.zero,
+                          icon: const Icon(
+                            Icons.add,
+                            color: ColorConst.appWhite,
+                            size: 16,
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                }),*/
               ],
             ),
           ),

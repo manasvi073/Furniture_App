@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "name": "Brown Chair",
+    "categoryType": "Armchair",
+    "price": "₹ 7,000",
+    "Image": "assets/images/chairs/brown_chair.png",
+    "rating": "5.0"
+  },
+  {
+    "id": "2",
+    "name": "Yellow Chair",
+    "categoryType": "Armchair",
+    "price": "₹ 10,500",
+    "Image": "assets/images/chairs/yellow_chair.png",
+    "rating": "4.5"
+  }
+]
