@@ -32,6 +32,7 @@ class LoginController extends GetxController {
     super.onInit();
   }
 
+
   void fetchProfile() async {
     try {
       final doc = await FirebaseFirestore.instance
@@ -49,12 +50,6 @@ class LoginController extends GetxController {
     }
   }
 
-  /*final user = FirebaseAuth.instance.currentUser;
-
-  String get userName => user?.displayName ?? 'No Name';
-
-  String get userEmail => user?.email ?? 'No Email';
-*/
   void show() {
     obscureText.value = !obscureText.value;
   }

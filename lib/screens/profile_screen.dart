@@ -18,47 +18,43 @@ class ProfileScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                children: [
-                  Center(
-                    child: Container(
-                      color: ColorConst.appWhite,
-                      child: const Text(
-                        'My Profile',
-                        style: TextStyle(
-                          color: ColorConst.appGreen,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+              Center(
+                child: Container(
+                  color: ColorConst.appWhite,
+                  child: const Text(
+                    'My Profile',
+                    style: TextStyle(
+                      color: ColorConst.appGreen,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Obx(
-                    () => Text(
-                      loginController.userName.value.isNotEmpty
-                          ? loginController.userName.value
-                          : '',
+                ),
+              ),
+              Obx(
+                () => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      loginController.userName.value,
                       style: const TextStyle(
                         color: ColorConst.appGreen,
                         fontWeight: FontWeight.w600,
-                        fontSize: 22,
+                        fontSize: 18,
                       ),
                     ),
-                  ),
-                  Obx(
-                    () => Text(
-                      loginController.userEmail.value.isNotEmpty
-                          ? loginController.userEmail.value
-                          : '',
+                    Text(
+                      loginController.userEmail.value,
                       style: const TextStyle(
                         color: ColorConst.appGreen,
-                        fontSize: 10,
+                        fontSize: 13,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
+              const SizedBox(height: 10),
               const Text(
                 'Account',
                 style: TextStyle(

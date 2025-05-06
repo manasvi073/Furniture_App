@@ -207,6 +207,8 @@ class HomeScreen extends StatelessWidget {
   static Widget _categoryCard(CategoryModel data) {
     final HomeController homeController = Get.put(HomeController());
 
+    final String? productId = data.id;
+
     return Container(
       width: 180,
       decoration: BoxDecoration(
@@ -303,10 +305,9 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Obx(() {
+            final count = homeController.productCounts[productId] ?? 0.obs;
+            return Row(
               children: [
                 Text(
                   data.price!,
@@ -316,40 +317,58 @@ class HomeScreen extends StatelessWidget {
                     color: ColorConst.appBlack,
                   ),
                 ),
-                GestureDetector(
-                  onTap: () => homeController.decrement(),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: ColorConst.appGreen,
-                      shape: BoxShape.circle,
-                    ),
-                    padding: const EdgeInsets.all(6),
-                    child: const Icon(
-                      Icons.remove,
+                const Spacer(),
+                if (count.value > 0) ...[
+                  Container(
+                    height: 24,
+                    width: 24,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
                       color: ColorConst.appWhite,
-                      size: 16,
+                      border: Border.all(color: ColorConst.appLightGray),
+                    ),
+                    child: IconButton(
+                      onPressed: () => homeController.decrement(productId!),
+                      padding: EdgeInsets.zero,
+                      icon: const Icon(
+                        Icons.remove,
+                        color: ColorConst.appGray,
+                        size: 16,
+                      ),
                     ),
                   ),
-                ),
-                Text('${homeController.count}'),
-                GestureDetector(
-                  onTap: () => homeController.increment(),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: ColorConst.appGreen,
-                      shape: BoxShape.circle,
+                  const SizedBox(width: 7),
+                  Text(
+                    '${count.value}',
+                    style: const TextStyle(
+                      color: ColorConst.appBlack,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'poppins',
                     ),
-                    padding: const EdgeInsets.all(6),
-                    child: const Icon(
+                  ),
+                  const SizedBox(width: 5),
+                ],
+                Container(
+                  height: 24,
+                  width: 24,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: ColorConst.appGreen,
+                  ),
+                  child: IconButton(
+                    onPressed: () => homeController.increment(productId!),
+                    padding: EdgeInsets.zero,
+                    icon: const Icon(
                       Icons.add,
                       color: ColorConst.appWhite,
                       size: 16,
                     ),
                   ),
-                ),
+                )
               ],
-            ),
-          ),
+            );
+          }),
         ],
       ),
     );

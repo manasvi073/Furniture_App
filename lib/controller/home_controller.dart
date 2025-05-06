@@ -11,8 +11,8 @@ class HomeController extends GetxController {
   var isSelected = 0.obs;
   var selected = 0.obs;
   var categoryList = <CategoryModel>[].obs;
-  var count = 0.obs;
   var url;
+  var productCounts = <String, RxInt>{}.obs;
 
   late final WebViewController controller;
 
@@ -24,15 +24,18 @@ class HomeController extends GetxController {
     selected.value = index;
   }
 
-  void increment() {
-    count++;
-    log('increment value -> $count');
+  void increment(String productId) {
+    if (!productCounts.containsKey(productId)) {
+      productCounts[productId] = 1.obs;
+    } else {
+      productCounts[productId]!.value++;
+    }
   }
 
-  void decrement() {
-    if (count > 1) {
-      count--;
-      log('decrement value -> $count');
+  void decrement(String productId) {
+    if (productCounts.containsKey(productId) &&
+        productCounts[productId]!.value > 1) {
+      productCounts[productId]!.value--;
     }
   }
 
