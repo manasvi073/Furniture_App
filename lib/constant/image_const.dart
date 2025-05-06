@@ -6,6 +6,7 @@ class ImageConst {
 
   static const String appLogo = '${imagepath}logo.jpg';
   static const String appOvel = '${imagepath}ovel.png';
+  static const String appOnboarding = '${imagepath}onboarding.png';
 
 // ====================== Icons =========================
 
@@ -22,5 +23,4 @@ class ImageConst {
   static const String appModernChair1 = '$imageChairPath/modernchair1.png';
   static const String appModernChair2 = '$imageChairPath/modernchair2.png';
   static const String appModernChair3 = '$imageChairPath/modernchair3.png';
-
 }

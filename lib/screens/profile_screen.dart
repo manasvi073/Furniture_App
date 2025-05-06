@@ -33,20 +33,28 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Text(
-                    'loginController.userName',
-                    style: TextStyle(
-                      color: ColorConst.appGreen,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 22,
+                  Obx(
+                    () => Text(
+                      loginController.userName.value.isNotEmpty
+                          ? loginController.userName.value
+                          : '',
+                      style: const TextStyle(
+                        color: ColorConst.appGreen,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 22,
+                      ),
                     ),
                   ),
-                  const Text(
-                    'loginController.userEmail',
-                    style: TextStyle(
-                      color: ColorConst.appGreen,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
+                  Obx(
+                    () => Text(
+                      loginController.userEmail.value.isNotEmpty
+                          ? loginController.userEmail.value
+                          : '',
+                      style: const TextStyle(
+                        color: ColorConst.appGreen,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
                 ],
@@ -100,12 +108,33 @@ class ProfileScreen extends StatelessWidget {
                     ColorConst.appBlue),
               ),
               _profileContent(
-                  'Terms & Conditions',
-                  const Icon(
-                    Icons.warning_amber_rounded,
-                    color: ColorConst.appYellow,
-                  ),
-                  ColorConst.appYellow),
+                'Terms & Conditions',
+                const Icon(
+                  Icons.warning_amber_rounded,
+                  color: ColorConst.appYellow,
+                ),
+                ColorConst.appYellow,
+              ),
+              /*SmartDialog.show(builder: (context) {
+          return Container(
+            height: 80,
+            width: 180,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            alignment: Alignment.center,
+            child: _profileContent(
+              'Log Out',
+              const Icon(
+                Icons.logout_rounded,
+                color: ColorConst.appRed,
+              ),
+              ColorConst.appRed,
+            ),
+          );
+        });*/
+
               GestureDetector(
                 onTap: () {
                   showModalBottomSheet(

@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:furniture_app/model/user_model.dart';
 import 'package:furniture_app/screens/home_screen.dart';
 import 'package:furniture_app/screens/login_screen.dart';
+import 'package:furniture_app/screens/onboarding_screen.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -16,8 +17,37 @@ class LoginController extends GetxController {
   var confirmPasswordObscureText = true.obs;
   File? selectedImage;
   String? userId;
+  var userName = ''.obs;
+  var userEmail = ''.obs;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  void onInit() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      userId = user.uid;
+      fetchProfile();
+    }
+    super.onInit();
+  }
+
+  void fetchProfile() async {
+    try {
+      final doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
+
+      if (doc.exists) {
+        final data = doc.data() as Map<String, dynamic>;
+        userName.value = data['username'] ?? '';
+        userEmail.value = data['email'] ?? '';
+      }
+    } catch (e) {
+      debugPrint('Error fetching profile: $e');
+    }
+  }
 
   /*final user = FirebaseAuth.instance.currentUser;
 
@@ -44,7 +74,7 @@ class LoginController extends GetxController {
       if (user != null) {
         debugPrint('Signed in as :${user.email}');
       }
-      Get.off(() => const HomeScreen());
+      Get.off(() => const OnboardingScreen());
     } on FirebaseAuthException catch (e) {
       String errorMessage;
       if (e.code == 'user-not-found') {

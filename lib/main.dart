@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:furniture_app/firebase_options.dart';
 import 'package:furniture_app/screens/home_screen.dart';
 import 'package:furniture_app/screens/login_screen.dart';
+import 'package:furniture_app/screens/onboarding_screen.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 void main() async {
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       title: 'Furniture App',
-      home: user == null ? const LoginScreen() : const HomeScreen(),
+      home: user == null ? const LoginScreen() : const OnboardingScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
