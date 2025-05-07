@@ -7,7 +7,6 @@ import 'package:furniture_app/screens/home_screen.dart';
 import 'package:furniture_app/screens/login_screen.dart';
 import 'package:furniture_app/screens/onboarding_screen.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 void main() async {
   Get.put(HomeController());
