@@ -55,13 +55,38 @@ class ProductDetail extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const CircleAvatar(
-                                backgroundColor: ColorConst.appWhite,
-                                child: Icon(
-                                  Icons.favorite_border_rounded,
-                                  color: ColorConst.appGreen,
-                                ),
-                              ),
+                              /*   CircleAvatar(
+                                  backgroundColor: ColorConst.appWhite,
+                                  child: isFavorite
+                                      ? const Icon(
+                                          Icons.favorite_rounded,
+                                          color: ColorConst.appRed,
+                                        )
+                                      : const Icon(
+                                          Icons.favorite_border_rounded,
+                                          color: ColorConst.appGreen,
+                                        )),*/
+                              Obx(() {
+                                final isFavorite = homeController
+                                    .favoriteCharacters
+                                    .contains(productData!.id);
+                                return GestureDetector(
+                                  onTap: () {
+                                    homeController.toggleFavorite(productData!);
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor: ColorConst.appWhite,
+                                    child: Icon(
+                                      isFavorite
+                                          ? Icons.favorite_rounded
+                                          : Icons.favorite_border_rounded,
+                                      color: isFavorite
+                                          ? ColorConst.appRed
+                                          : ColorConst.appGreen,
+                                    ),
+                                  ),
+                                );
+                              }),
                             ],
                           ),
                         ),

@@ -42,6 +42,8 @@ dependencies:
   webview_flutter: ^4.8.0
   universal_html: ^2.2.1
   flutter_smart_dialog: ^4.9.8+7
+  get_storage: ^2.1.1
+  provider: ^6.1.4
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -121,7 +121,7 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Obx(
                 () => SizedBox(
-                  height: 300,
+                  height: 275,
                   child: homeController.categoryList.isEmpty
                       ? LoadingAnimationWidget.hexagonDots(
                           color: ColorConst.appGray,
@@ -152,15 +152,22 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              SizedBox(
-                height: 300,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: homeController.sellersList.length,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 20),
-                  itemBuilder: (context, index) =>
-                      _seller(homeController.sellersList[index]),
+              Obx(
+                () => SizedBox(
+                  height: 114,
+                  child: homeController.sellersList.isEmpty
+                      ? LoadingAnimationWidget.hexagonDots(
+                          color: ColorConst.appGray,
+                          size: 24,
+                        )
+                      : ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: homeController.sellersList.length,
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(width: 20),
+                          itemBuilder: (context, index) =>
+                              _seller(homeController.sellersList[index]),
+                        ),
                 ),
               ),
             ],
@@ -308,66 +315,69 @@ class HomeScreen extends StatelessWidget {
           ),
           Obx(() {
             final count = homeController.productCounts[productId] ?? 0.obs;
-            return Row(
-              children: [
-                Text(
-                  data.price!,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: ColorConst.appBlack,
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Row(
+                children: [
+                  Text(
+                    data.price!,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: ColorConst.appBlack,
+                    ),
                   ),
-                ),
-                const Spacer(),
-                if (count.value > 0) ...[
+                  const Spacer(),
+                  if (count.value > 0) ...[
+                    Container(
+                      height: 24,
+                      width: 24,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: ColorConst.appWhite,
+                        border: Border.all(color: ColorConst.appLightGray),
+                      ),
+                      child: IconButton(
+                        onPressed: () => homeController.decrement(productId!),
+                        padding: EdgeInsets.zero,
+                        icon: const Icon(
+                          Icons.remove,
+                          color: ColorConst.appGray,
+                          size: 16,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 7),
+                    Text(
+                      '${count.value}',
+                      style: const TextStyle(
+                        color: ColorConst.appBlack,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'poppins',
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                  ],
                   Container(
                     height: 24,
                     width: 24,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: ColorConst.appWhite,
-                      border: Border.all(color: ColorConst.appLightGray),
+                      color: ColorConst.appGreen,
                     ),
                     child: IconButton(
-                      onPressed: () => homeController.decrement(productId!),
+                      onPressed: () => homeController.increment(productId!),
                       padding: EdgeInsets.zero,
                       icon: const Icon(
-                        Icons.remove,
-                        color: ColorConst.appGray,
+                        Icons.add,
+                        color: ColorConst.appWhite,
                         size: 16,
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 7),
-                  Text(
-                    '${count.value}',
-                    style: const TextStyle(
-                      color: ColorConst.appBlack,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'poppins',
-                    ),
-                  ),
-                  const SizedBox(width: 5),
+                  )
                 ],
-                Container(
-                  height: 24,
-                  width: 24,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: ColorConst.appGreen,
-                  ),
-                  child: IconButton(
-                    onPressed: () => homeController.increment(productId!),
-                    padding: EdgeInsets.zero,
-                    icon: const Icon(
-                      Icons.add,
-                      color: ColorConst.appWhite,
-                      size: 16,
-                    ),
-                  ),
-                )
-              ],
+              ),
             );
           }),
         ],
@@ -376,11 +386,13 @@ class HomeScreen extends StatelessWidget {
   }
 
   static Widget _seller(BestSellersModel sellerData) {
-    final HomeController homeController = Get.put(HomeController());
-    // final String? productId = data.id;
+    final HomeController homeController =
+        Get.put(HomeController(), permanent: true);
+    final String id = sellerData.id!;
+    final count = homeController.sellerCounts.putIfAbsent(id, () => 0.obs);
 
     return Container(
-      width: 260,
+      width: 300,
       decoration: BoxDecoration(
         color: ColorConst.appWhite,
         borderRadius: BorderRadius.circular(12),
@@ -456,81 +468,49 @@ class HomeScreen extends StatelessWidget {
                     fontSize: 12,
                   ),
                 ),
-                Row(
-                  children: [
-                    const Text(
-                      '₹ 10,500',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: ColorConst.appBlack,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 17),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: ColorConst.appGreen,
-                          shape: BoxShape.circle,
-                        ),
-                        padding: const EdgeInsets.all(6),
-                        child: const Icon(
-                          Icons.add,
-                          color: ColorConst.appWhite,
-                          size: 18,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-               /* Obx(() {
-                  /*   final count =
-                      homeController.productCounts[productId] ?? 0.obs;*/
+                Obx(() {
                   return Row(
                     children: [
                       Text(
                         sellerData.price!,
-                        // data.price!,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: ColorConst.appBlack,
                         ),
                       ),
-                      const Spacer(),
-                      // if (count.value > 0) ...[
-                      Container(
-                        height: 24,
-                        width: 24,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: ColorConst.appWhite,
-                          border: Border.all(color: ColorConst.appLightGray),
-                        ),
-                        child: IconButton(
-                          onPressed: () {},
-                          // homeController.decrement(productId!),
-                          padding: EdgeInsets.zero,
-                          icon: const Icon(
-                            Icons.remove,
-                            color: ColorConst.appGray,
-                            size: 16,
+                      const SizedBox(width: 25),
+                      if (count.value > 0) ...[
+                        Container(
+                          height: 24,
+                          width: 24,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: ColorConst.appWhite,
+                            border: Border.all(color: ColorConst.appLightGray),
+                          ),
+                          child: IconButton(
+                            onPressed: () => homeController.sellerDecrement(id),
+                            padding: EdgeInsets.zero,
+                            icon: const Icon(
+                              Icons.remove,
+                              color: ColorConst.appGray,
+                              size: 16,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 7),
-                      const Text(
-                        '{count.value}',
-                        style: TextStyle(
-                          color: ColorConst.appBlack,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'poppins',
+                        const SizedBox(width: 7),
+                        Text(
+                          '${count.value}',
+                          style: const TextStyle(
+                            color: ColorConst.appBlack,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'poppins',
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 5),
-                      // ],
+                        const SizedBox(width: 5),
+                      ],
                       Container(
                         height: 24,
                         width: 24,
@@ -539,8 +519,7 @@ class HomeScreen extends StatelessWidget {
                           color: ColorConst.appGreen,
                         ),
                         child: IconButton(
-                          onPressed: () {},
-                          // homeController.increment(productId!),
+                          onPressed: () => homeController.sellerIncrement(id),
                           padding: EdgeInsets.zero,
                           icon: const Icon(
                             Icons.add,
@@ -548,10 +527,10 @@ class HomeScreen extends StatelessWidget {
                             size: 16,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   );
-                }),*/
+                })
               ],
             ),
           ),
