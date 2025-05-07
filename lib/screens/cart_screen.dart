@@ -162,7 +162,7 @@ class CartScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // ✅ Price = unitPrice * count
+
                       Text(
                         "₹${unitPrice * count.value}",
                         style: const TextStyle(
