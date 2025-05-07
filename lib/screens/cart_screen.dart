@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/constant/color_const.dart';
-import 'package:furniture_app/constant/image_const.dart';
+import 'package:furniture_app/controller/home_controller.dart';
+import 'package:furniture_app/model/category_model.dart';
 import 'package:get/get.dart';
 
-class CartScreen extends StatefulWidget {
+class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
   @override
-  State<CartScreen> createState() => _CartScreenState();
-}
-
-class _CartScreenState extends State<CartScreen> {
-  List<bool> isCheckedList = List.generate(3, (index) => true);
-
-  @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.find<HomeController>();
+
     return Scaffold(
       backgroundColor: ColorConst.appBackColor,
       body: SafeArea(
         child: Column(
           children: [
+            // Top Bar
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Row(
@@ -43,24 +40,46 @@ class _CartScreenState extends State<CartScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const CircleAvatar(
-                    backgroundColor: ColorConst.appWhite,
-                    child: Icon(Icons.delete_outline_outlined,
-                        color: ColorConst.appGreen),
+                  GestureDetector(
+                    onTap: () {
+                      homeController.cartItems.clear();
+                    },
+                    child: const CircleAvatar(
+                      backgroundColor: ColorConst.appWhite,
+                      child: Icon(Icons.delete_outline_outlined,
+                          color: ColorConst.appGreen),
+                    ),
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 10),
+            // Cart Items List
             Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.all(15),
-                itemCount: isCheckedList.length,
-                itemBuilder: (context, index) {
-                  return _cartProduct(index);
-                },
-              ),
+              child: Obx(() {
+                if (homeController.cartItems.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'Your cart is empty',
+                      style: TextStyle(
+                        color: ColorConst.appGray,
+                        fontSize: 16,
+                      ),
+                    ),
+                  );
+                }
+
+                return ListView.builder(
+                  padding: const EdgeInsets.all(15),
+                  itemCount: homeController.cartItems.length,
+                  itemBuilder: (context, index) {
+                    final product = homeController.cartItems[index];
+                    return _cartProduct(product);
+                  },
+                );
+              }),
             ),
+            // Checkout Button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: SizedBox(
@@ -74,7 +93,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                   onPressed: () {
-                    // Get.off(() => const CartScreen());
+                    // Proceed to checkout logic
                   },
                   child: const Text(
                     "Proceed to checkout",
@@ -92,8 +111,12 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget _cartProduct(int index) {
-    return Container(
+/*  Widget _cartProduct(CategoryModel product) {
+    final HomeController homeController = Get.find<HomeController>();
+    final count = homeController.productCounts[product.id] ?? 1.obs;
+    final int unitPrice = int.tryParse(product.price ?? "0") ?? 0;
+
+    return Obx(() => Container(
       margin: const EdgeInsets.only(bottom: 15),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -101,33 +124,18 @@ class _CartScreenState extends State<CartScreen> {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Checkbox(
-                value: isCheckedList[index],
-                onChanged: (val) {
-                  setState(() {
-                    isCheckedList[index] = val!;
-                  });
-                },
-                activeColor: ColorConst.appGreen,
-              ),
-              const SizedBox(width: 10),
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorConst.appBackColor,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                padding: const EdgeInsets.all(12),
-                child: Image.asset(
-                  ImageConst.appYellowChair,
-                  height: 65,
-                  width: 78,
-                ),
-              ),
-            ],
+          Container(
+            decoration: BoxDecoration(
+              color: ColorConst.appBackColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            padding: const EdgeInsets.all(12),
+            child: Image.asset(
+              product.image ?? '',
+              height: 52,
+              width: 62,
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -136,27 +144,142 @@ class _CartScreenState extends State<CartScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Yellow Chair',
-                    style: TextStyle(
+                  Text(
+                    product.name ?? '',
+                    style: const TextStyle(
                       color: ColorConst.appBlack,
                       fontWeight: FontWeight.w600,
                       fontSize: 16,
                     ),
                   ),
-                  const Text(
-                    'Armchair',
-                    style: TextStyle(
-                      color: Colors.grey,
+                  Text(
+                    product.categoryType ?? '',
+                    style: const TextStyle(
+                      color: ColorConst.appGray,
                       fontSize: 12,
                     ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        '₹ 10,500',
-                        style: TextStyle(
+                      // ✅ Price = unitPrice * count
+                      Text(
+                        "₹${unitPrice * count.value}",
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: ColorConst.appBlack,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: ColorConst.appBackColor,
+                        ),
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                homeController.decrement(product.id ?? '');
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: ColorConst.appWhite,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: const Icon(Icons.remove,
+                                    size: 18, color: ColorConst.appGreen),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              "${count.value}",
+                              style: const TextStyle(
+                                color: ColorConst.appGreen,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            GestureDetector(
+                              onTap: () {
+                                homeController.increment(product.id ?? '');
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: ColorConst.appWhite,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: const Icon(Icons.add,
+                                    size: 18, color: ColorConst.appGreen),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    ));
+  }*/
+
+  Widget _cartProduct(product) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 15),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: ColorConst.appWhite,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: ColorConst.appBackColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            padding: const EdgeInsets.all(12),
+            child: Image.asset(
+              product.image ?? '',
+              height: 52,
+              width: 62,
+              // fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.name ?? '',
+                    style: const TextStyle(
+                      color: ColorConst.appBlack,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    product.categoryType ?? '',
+                    style: const TextStyle(
+                      color: ColorConst.appGray,
+                      fontSize: 12,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "${product.price}",
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: ColorConst.appBlack,
@@ -206,11 +329,11 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                       ),
                     ],
-                  ),
+                  )
                 ],
               ),
             ),
-          ),
+          )
         ],
       ),
     );

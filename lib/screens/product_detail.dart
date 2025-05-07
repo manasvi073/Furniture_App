@@ -16,7 +16,6 @@ class ProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController homeController = Get.find<HomeController>();
-   final CartController cartController = Get.put(CartController());
 
     return Scaffold(
       backgroundColor: ColorConst.appLightWhite,
@@ -45,9 +44,10 @@ class ProductDetail extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               GestureDetector(
-                                onTap: () {
+                                 onTap: () {
                                   Get.offAll(() => const HomeScreen());
                                 },
+                                // onTap: () => Get.back(),
                                 child: const CircleAvatar(
                                   backgroundColor: ColorConst.appWhite,
                                   child: Icon(
@@ -56,6 +56,7 @@ class ProductDetail extends StatelessWidget {
                                   ),
                                 ),
                               ),
+
                               Obx(() {
                                 final isFavorite = homeController
                                     .favoriteCharacters

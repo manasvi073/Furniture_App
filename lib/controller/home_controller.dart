@@ -19,8 +19,7 @@ class HomeController extends GetxController {
   var sellerCounts = <String, RxInt>{}.obs;
   final box = GetStorage();
   RxList<String> favoriteCharacters = <String>[].obs;
-  var cartItems = <CategoryModel>[].obs;
-
+  RxList<CategoryModel> cartItems = <CategoryModel>[].obs;
 
   late final WebViewController controller;
 
@@ -120,6 +119,7 @@ class HomeController extends GetxController {
       favoriteCharacters.value = [];
     }
   }
+
   void toggleFavorite(String id) {
     if (favoriteCharacters.contains(id)) {
       favoriteCharacters.remove(id);
@@ -127,14 +127,22 @@ class HomeController extends GetxController {
       favoriteCharacters.add(id);
     }
   }
-/*
+
   void addToCart(CategoryModel product) {
     if (!cartItems.any((item) => item.id == product.id)) {
       cartItems.add(product);
     }
   }
 
+
+  /*void addToCart(CategoryModel product) {
+    if (!cartItems.any((item) => item.id == product.id)) {
+      cartItems.add(product);
+      productCounts[product.id ?? ''] = 1.obs;
+    }
+  }
+*/
   void removeFromCart(String id) {
     cartItems.removeWhere((item) => item.id == id);
-  }*/
+  }
 }
