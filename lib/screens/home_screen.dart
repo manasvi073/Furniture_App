@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/constant/color_const.dart';
 import 'package:furniture_app/constant/image_const.dart';
-import 'package:furniture_app/controller/best_sellers.dart';
+
 import 'package:furniture_app/controller/home_controller.dart';
+import 'package:furniture_app/model/best_sellers_model.dart';
 import 'package:furniture_app/model/category_model.dart';
 import 'package:furniture_app/screens/favorite_screen.dart';
 import 'package:furniture_app/screens/cart_screen.dart';

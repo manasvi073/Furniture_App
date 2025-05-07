@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:furniture_app/controller/best_sellers.dart';
+import 'package:furniture_app/model/best_sellers_model.dart';
 import 'package:furniture_app/model/category_model.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -19,6 +19,7 @@ class HomeController extends GetxController {
   var sellerCounts = <String, RxInt>{}.obs;
   final box = GetStorage();
   RxList<String> favoriteCharacters = <String>[].obs;
+  var cartItems = <CategoryModel>[].obs;
 
 
   late final WebViewController controller;
@@ -126,30 +127,14 @@ class HomeController extends GetxController {
       favoriteCharacters.add(id);
     }
   }
-
-  /*void toggleFavorite(CategoryModel category) {
-    Map<String, dynamic> favoriteItem = {
-      "id": category.id,
-      "name": category.name,
-      "image": category.image,
-    };
-
-    List<Map<String, dynamic>> favorites =
-        (box.read<List<dynamic>>('favorites') ?? [])
-            .map((e) => Map<String, dynamic>.from(e))
-            .toList();
-
-    int index = favorites.indexWhere((item) => item['id'] == category.id);
-
-    if (index != -1) {
-      favorites.removeAt(index);
-      favoriteCharacters.remove(category.id);
-    } else {
-      favorites.add(favoriteItem);
-      favoriteCharacters.add(category.id!);
+/*
+  void addToCart(CategoryModel product) {
+    if (!cartItems.any((item) => item.id == product.id)) {
+      cartItems.add(product);
     }
+  }
 
-    box.write('favorites', favorites);
-    log('Favorites Data -> $favorites');
+  void removeFromCart(String id) {
+    cartItems.removeWhere((item) => item.id == id);
   }*/
 }

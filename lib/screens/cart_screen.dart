@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/constant/color_const.dart';
 import 'package:furniture_app/constant/image_const.dart';
+import 'package:get/get.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -25,9 +26,7 @@ class _CartScreenState extends State<CartScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      // Get.offAll(()=>ProductDetail());
-                    },
+                    onTap: () => Get.back(),
                     child: const CircleAvatar(
                       backgroundColor: ColorConst.appWhite,
                       child: Icon(
