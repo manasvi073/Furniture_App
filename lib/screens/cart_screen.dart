@@ -26,7 +26,7 @@ class _CartScreenState extends State<CartScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // Get.offAll(ProductDetail());
+                      // Get.offAll(()=>ProductDetail());
                     },
                     child: const CircleAvatar(
                       backgroundColor: ColorConst.appWhite,

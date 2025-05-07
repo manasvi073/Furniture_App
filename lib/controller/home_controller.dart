@@ -18,7 +18,8 @@ class HomeController extends GetxController {
   var productCounts = <String, RxInt>{}.obs;
   var sellerCounts = <String, RxInt>{}.obs;
   final box = GetStorage();
-  var favoriteCharacters = <String>[].obs;
+  RxList<String> favoriteCharacters = <String>[].obs;
+
 
   late final WebViewController controller;
 
@@ -118,8 +119,15 @@ class HomeController extends GetxController {
       favoriteCharacters.value = [];
     }
   }
+  void toggleFavorite(String id) {
+    if (favoriteCharacters.contains(id)) {
+      favoriteCharacters.remove(id);
+    } else {
+      favoriteCharacters.add(id);
+    }
+  }
 
-  void toggleFavorite(CategoryModel category) {
+  /*void toggleFavorite(CategoryModel category) {
     Map<String, dynamic> favoriteItem = {
       "id": category.id,
       "name": category.name,
@@ -143,5 +151,5 @@ class HomeController extends GetxController {
 
     box.write('favorites', favorites);
     log('Favorites Data -> $favorites');
-  }
+  }*/
 }

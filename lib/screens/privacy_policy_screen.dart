@@ -15,7 +15,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = Get.put(HomeController());
+    final HomeController homeController = Get.find<HomeController>();
 
     return Scaffold(
       body: kIsWeb

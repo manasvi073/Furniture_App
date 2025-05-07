@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = Get.put(HomeController());
+    final HomeController homeController = Get.find<HomeController>();
 
     final List<Widget> screens = [
       _homeContent(homeController),
@@ -133,9 +133,10 @@ class HomeScreen extends StatelessWidget {
                           separatorBuilder: (context, index) =>
                               const SizedBox(width: 20),
                           itemBuilder: (context, index) => GestureDetector(
-                            onTap: () => Get.off(ProductDetail(
-                              productData: homeController.categoryList[index],
-                            )),
+                            onTap: () => Get.off(() => ProductDetail(
+                                  productData:
+                                      homeController.categoryList[index],
+                                )),
                             child: _categoryCard(
                                 homeController.categoryList[index]),
                           ),
@@ -178,7 +179,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   static Widget scrollText(List<String> text) {
-    final HomeController homeController = Get.put(HomeController());
+    final HomeController homeController = Get.find<HomeController>();
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Obx(
@@ -214,7 +215,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   static Widget _categoryCard(CategoryModel data) {
-    final HomeController homeController = Get.put(HomeController());
+    final HomeController homeController = Get.find<HomeController>();
     final String? productId = data.id;
 
     return Container(
