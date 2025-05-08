@@ -132,12 +132,14 @@ class HomeScreen extends StatelessWidget {
                       : homeController.filteredCategoryList.isEmpty
                           ? const Center(
                               child: Text(
-                              'No categories found',
-                              style: TextStyle(
+                                'No categories found',
+                                style: TextStyle(
                                   color: ColorConst.appGreen,
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 14),
-                            ))
+                                  fontSize: 14,
+                                ),
+                              ),
+                            )
                           : ListView.separated(
                               scrollDirection: Axis.horizontal,
                               itemCount:
@@ -333,7 +335,9 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    data.price!,
+                    // data.price!,
+                    // '₹${(int.parse(data.price!.replaceAll(RegExp(r'[^0-9]'), '')) * count.value)}',
+                    '₹${(count.value == 0 ? int.parse(data.price!.replaceAll(RegExp(r'[^0-9]'), '')) : int.parse(data.price!.replaceAll(RegExp(r'[^0-9]'), '')) * count.value)}',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
