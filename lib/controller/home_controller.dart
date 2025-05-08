@@ -20,6 +20,7 @@ class HomeController extends GetxController {
   final box = GetStorage();
   RxList<String> favoriteCharacters = <String>[].obs;
   RxList<CategoryModel> cartItems = <CategoryModel>[].obs;
+  var searchText = ''.obs;
 
   late final WebViewController controller;
 
@@ -30,6 +31,8 @@ class HomeController extends GetxController {
   void selectIcon(int index) {
     selected.value = index;
   }
+
+//============================== INCREMENT - DECREMENT CATEGORY =================================
 
   void increment(String productId) {
     if (!productCounts.containsKey(productId)) {
@@ -45,6 +48,8 @@ class HomeController extends GetxController {
       productCounts[productId]!.value--;
     }
   }
+
+//============================== INCREMENT - DECREMENT SELLERS =================================
 
   void sellerIncrement(String id) {
     if (!sellerCounts.containsKey(id)) {
@@ -74,6 +79,8 @@ class HomeController extends GetxController {
     }
   }
 
+//============================== CATEGORY JSON =================================
+
   Future<void> loadCategory() async {
     try {
       final String response =
@@ -89,6 +96,8 @@ class HomeController extends GetxController {
     }
   }
 
+//============================== SELLERS JSON =================================
+
   Future<void> loadSellers() async {
     try {
       final String response =
@@ -103,6 +112,8 @@ class HomeController extends GetxController {
       log('Error -> $e');
     }
   }
+
+//============================== FAVORITE DATA =================================
 
   void loadFavorites() {
     List<dynamic>? storedFavorites = box.read<List<dynamic>>('favorites');
@@ -128,12 +139,13 @@ class HomeController extends GetxController {
     }
   }
 
+//============================== CART DATA =================================
+
   void addToCart(CategoryModel product) {
     if (!cartItems.any((item) => item.id == product.id)) {
       cartItems.add(product);
     }
   }
-
 
   /*void addToCart(CategoryModel product) {
     if (!cartItems.any((item) => item.id == product.id)) {
@@ -144,5 +156,19 @@ class HomeController extends GetxController {
 */
   void removeFromCart(String id) {
     cartItems.removeWhere((item) => item.id == id);
+  }
+
+//============================== SEARCH CATEGORY =================================
+
+  List<CategoryModel> get filteredCategoryList {
+    if (searchText.value.isEmpty) {
+      return categoryList;
+    } else {
+      return categoryList
+          .where((item) => item.name!
+          .toLowerCase()
+          .contains(searchText.value.toLowerCase()))
+          .toList();
+    }
   }
 }

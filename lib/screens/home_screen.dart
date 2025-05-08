@@ -71,6 +71,7 @@ class HomeScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 20),
                 child: TextFormField(
+                  onChanged: (value) => homeController.searchText.value = value,
                   decoration: InputDecoration(
                     hintText: 'Search for furniture',
                     hintStyle:
@@ -128,20 +129,30 @@ class HomeScreen extends StatelessWidget {
                           color: ColorConst.appGray,
                           size: 24,
                         )
-                      : ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: homeController.categoryList.length,
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(width: 20),
-                          itemBuilder: (context, index) => GestureDetector(
-                            onTap: () => Get.off(() => ProductDetail(
-                                  productData:
-                                      homeController.categoryList[index],
-                                )),
-                            child: _categoryCard(
-                                homeController.categoryList[index]),
-                          ),
-                        ),
+                      : homeController.filteredCategoryList.isEmpty
+                          ? const Center(
+                              child: Text(
+                              'No categories found',
+                              style: TextStyle(
+                                  color: ColorConst.appGreen,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14),
+                            ))
+                          : ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemCount:
+                                  homeController.filteredCategoryList.length,
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(width: 20),
+                              itemBuilder: (context, index) => GestureDetector(
+                                onTap: () => Get.off(() => ProductDetail(
+                                      productData: homeController
+                                          .filteredCategoryList[index],
+                                    )),
+                                child: _categoryCard(
+                                    homeController.filteredCategoryList[index]),
+                              ),
+                            ),
                 ),
               ),
               const SizedBox(height: 13),
