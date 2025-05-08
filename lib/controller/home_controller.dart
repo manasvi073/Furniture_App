@@ -13,6 +13,7 @@ class HomeController extends GetxController {
   var isSelected = 0.obs;
   var selected = 0.obs;
   var categoryList = <CategoryModel>[].obs;
+
   var sellersList = <BestSellersModel>[].obs;
   var url;
   var productCounts = <String, RxInt>{}.obs;
@@ -165,9 +166,8 @@ class HomeController extends GetxController {
       return categoryList;
     } else {
       return categoryList
-          .where((item) => item.name!
-          .toLowerCase()
-          .contains(searchText.value.toLowerCase()))
+          .where((item) =>
+              item.name!.toLowerCase().contains(searchText.value.toLowerCase()))
           .toList();
     }
   }
