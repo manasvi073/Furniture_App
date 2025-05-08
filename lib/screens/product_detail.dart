@@ -206,18 +206,23 @@ class ProductDetail extends StatelessWidget {
                                   ),
                                   child: Row(
                                     children: [
-                                      GestureDetector(
-                                        onTap: () => homeController
-                                            .decrement(productId!),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: ColorConst.appWhite,
+                                      Container(
+                                        height: 20,
+                                        width: 20,
+                                        decoration: BoxDecoration(
+                                          color: ColorConst.appWhite,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: IconButton(
+                                          onPressed: () => homeController
+                                              .decrement(productId!),
+                                          padding: EdgeInsets.zero,
+                                          icon: const Icon(
+                                            Icons.remove,
+                                            color: ColorConst.appGreen,
+                                            size: 16,
                                           ),
-                                          child: const Icon(Icons.remove,
-                                              size: 18,
-                                              color: ColorConst.appGreen),
                                         ),
                                       ),
                                       const SizedBox(width: 8),
@@ -230,18 +235,23 @@ class ProductDetail extends StatelessWidget {
                                         ),
                                       ),
                                       const SizedBox(width: 8),
-                                      GestureDetector(
-                                        onTap: () => homeController
-                                            .increment(productId!),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: ColorConst.appWhite,
+                                      Container(
+                                        height: 20,
+                                        width: 20,
+                                        decoration: BoxDecoration(
+                                          color: ColorConst.appWhite,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: IconButton(
+                                          onPressed: () => homeController
+                                              .increment(productId!),
+                                          padding: EdgeInsets.zero,
+                                          icon: const Icon(
+                                            Icons.add,
+                                            color: ColorConst.appGreen,
+                                            size: 16,
                                           ),
-                                          child: const Icon(Icons.add,
-                                              size: 18,
-                                              color: ColorConst.appGreen),
                                         ),
                                       ),
                                     ],
@@ -262,7 +272,6 @@ class ProductDetail extends StatelessWidget {
                                 onPressed: () {
                                   homeController.addToCart(productData!);
                                   Get.to(() => const CartScreen());
-                                  // Get.off(() => const CartScreen());
                                 },
                                 child: Text(
                                   "Add to cart | ₹${(count.value == 0 ? int.parse(productData!.price!.replaceAll(RegExp(r'[^0-9]'), '')) : int.parse(productData!.price!.replaceAll(RegExp(r'[^0-9]'), '')) * count.value)}",

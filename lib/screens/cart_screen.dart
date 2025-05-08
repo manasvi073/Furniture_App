@@ -15,7 +15,6 @@ class CartScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // Top Bar
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Row(
@@ -53,7 +52,7 @@ class CartScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            // Cart Items List
+
             Expanded(
               child: Obx(() {
                 if (homeController.cartItems.isEmpty) {
@@ -91,9 +90,7 @@ class CartScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  onPressed: () {
-                    // Proceed to checkout logic
-                  },
+                  onPressed: () {},
                   child: const Text(
                     "Proceed to checkout",
                     style: TextStyle(
@@ -135,7 +132,6 @@ class CartScreen extends StatelessWidget {
                 product.image!,
                 height: 52,
                 width: 62,
-                // fit: BoxFit.cover,
               ),
             ),
             const SizedBox(width: 12),
@@ -180,16 +176,22 @@ class CartScreen extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-                              GestureDetector(
-                                onTap: () =>
-                                    homeController.decrement(productId!),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: ColorConst.appWhite,
-                                    borderRadius: BorderRadius.circular(20),
+                              Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  color: ColorConst.appWhite,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: IconButton(
+                                  onPressed: () =>
+                                      homeController.decrement(productId!),
+                                  padding: EdgeInsets.zero,
+                                  icon: const Icon(
+                                    Icons.remove,
+                                    color: ColorConst.appGreen,
+                                    size: 16,
                                   ),
-                                  child: const Icon(Icons.remove,
-                                      size: 18, color: ColorConst.appGreen),
                                 ),
                               ),
                               const SizedBox(width: 8),
@@ -202,16 +204,22 @@ class CartScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(width: 8),
-                              GestureDetector(
-                                onTap: () =>
-                                    homeController.increment(productId!),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: ColorConst.appWhite,
-                                    borderRadius: BorderRadius.circular(20),
+                              Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  color: ColorConst.appWhite,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: IconButton(
+                                  onPressed: () =>
+                                      homeController.increment(productId!),
+                                  padding: EdgeInsets.zero,
+                                  icon: const Icon(
+                                    Icons.add,
+                                    color: ColorConst.appGreen,
+                                    size: 16,
                                   ),
-                                  child: const Icon(Icons.add,
-                                      size: 18, color: ColorConst.appGreen),
                                 ),
                               ),
                             ],

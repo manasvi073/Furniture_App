@@ -36,15 +36,7 @@ class HomeScreen extends StatelessWidget {
   static Widget _homeContent(HomeController homeController) {
     return SingleChildScrollView(
       child: Center(
-        child:
-            /* homeController.categoryList.isEmpty
-              ? LoadingAnimationWidget.hexagonDots(
-                  color: ColorConst.appGray,
-                  size: 24,
-                )
-              : */
-
-            Padding(
+        child: Padding(
           padding: const EdgeInsets.only(top: 15, bottom: 15, left: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -335,8 +327,6 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    // data.price!,
-                    // '₹${(int.parse(data.price!.replaceAll(RegExp(r'[^0-9]'), '')) * count.value)}',
                     '₹${(count.value == 0 ? int.parse(data.price!.replaceAll(RegExp(r'[^0-9]'), '')) : int.parse(data.price!.replaceAll(RegExp(r'[^0-9]'), '')) * count.value)}',
                     style: const TextStyle(
                       fontSize: 16,
@@ -422,7 +412,6 @@ class HomeScreen extends StatelessWidget {
               Container(
                 margin:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-                // height: 170,
                 decoration: BoxDecoration(
                   color: ColorConst.appBackColor,
                   borderRadius: BorderRadius.circular(12),
