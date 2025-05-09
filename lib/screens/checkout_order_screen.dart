@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:furniture_app/constant/color_const.dart';
 import 'package:furniture_app/controller/home_controller.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CheckoutOrderScreen extends StatelessWidget {
   const CheckoutOrderScreen({super.key});
@@ -48,6 +47,16 @@ class CheckoutOrderScreen extends StatelessWidget {
 
   Widget checkoutData() {
     final HomeController homeController = Get.find<HomeController>();
+
+    final int totalAmount = homeController.cartItems.fold<int>(
+      0,
+      (sum, product) {
+        final count = homeController.productCounts[product.id] ?? 1.obs;
+        final price =
+            int.parse(product.price!.replaceAll(RegExp(r'[^0-9]'), ''));
+        return sum + (price * count.value);
+      },
+    );
 
     return SingleChildScrollView(
       child: Padding(
@@ -113,7 +122,8 @@ class CheckoutOrderScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w600),
                                 ),
                                 Text(
-                                  product.price!,
+                                  // product.price!,
+                                  "₹${(count.value == 0 ? int.parse(product.price!.replaceAll(RegExp(r'[^0-9]'), '')) : int.parse(product.price!.replaceAll(RegExp(r'[^0-9]'), '')) * count.value)}",
                                   style: const TextStyle(
                                       color: ColorConst.appGreen,
                                       fontSize: 13,
@@ -139,12 +149,48 @@ class CheckoutOrderScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 20),
+                            Container(
+                              padding: const EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                color: ColorConst.appWhite,
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.1),
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    'Total Checkout Amount:',
+                                    style: TextStyle(
+                                      color: ColorConst.appGreen,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    '₹$totalAmount',
+                                    style: const TextStyle(
+                                      color: ColorConst.appGreen,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       );
                     },
                   ),
-                  // const Text('Total price :')
                 ],
               ),
             ),
