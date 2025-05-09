@@ -54,6 +54,15 @@ class CheckoutOrderScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 13),
         child: Column(
           children: [
+            if (homeController.cartItems.isEmpty)
+              const Text(
+                'No added checkout Order',
+                style: TextStyle(
+                  color: ColorConst.appGreen,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
+                ),
+              ),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
@@ -62,88 +71,80 @@ class CheckoutOrderScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  homeController.cartItems.isEmpty
-                      ? Center(
-                          child: LoadingAnimationWidget.hexagonDots(
-                            color: ColorConst.appGray,
-                            size: 24,
-                          ),
-                        )
-                      : ListView.separated(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: homeController.cartItems.length,
-                          separatorBuilder: (context, index) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: Divider(
-                              color: ColorConst.appGreen.withOpacity(0.2),
-                              endIndent: 20,
-                              indent: 20,
-                            ),
-                          ),
-                          itemBuilder: (context, index) {
-                            final product = homeController.cartItems[index];
-                            final String? productId = product.id;
-                            final count =
-                                homeController.productCounts[productId] ??
-                                    1.obs;
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: homeController.cartItems.length,
+                    separatorBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Divider(
+                        color: ColorConst.appGreen.withOpacity(0.2),
+                        endIndent: 20,
+                        indent: 20,
+                      ),
+                    ),
+                    itemBuilder: (context, index) {
+                      final product = homeController.cartItems[index];
+                      final String? productId = product.id;
+                      final count =
+                          homeController.productCounts[productId] ?? 1.obs;
 
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 13, vertical: 13),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    // ImageConst.appBrownChair,
-                                    product.image!,
-                                    height: 70,
-                                    width: 70,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        // 'Brown Chair',
-                                        product.name!,
-                                        style: const TextStyle(
-                                            color: ColorConst.appGreen,
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      Text(
-                                        product.price!,
-                                        style: const TextStyle(
-                                            color: ColorConst.appGreen,
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  Container(
-                                    height: 26,
-                                    width: 26,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            color: ColorConst.appGreen)),
-                                    child: Center(
-                                      child: Text(
-                                        '${count.value}x',
-                                        style: const TextStyle(
-                                            color: ColorConst.appGreen,
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 13, vertical: 13),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              // ImageConst.appBrownChair,
+                              product.image!,
+                              height: 70,
+                              width: 70,
+                            ),
+                            const SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  // 'Brown Chair',
+                                  product.name!,
+                                  style: const TextStyle(
+                                      color: ColorConst.appGreen,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  product.price!,
+                                  style: const TextStyle(
+                                      color: ColorConst.appGreen,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                            const Spacer(),
+                            Container(
+                              height: 26,
+                              width: 26,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border:
+                                      Border.all(color: ColorConst.appGreen)),
+                              child: Center(
+                                child: Text(
+                                  '${count.value}x',
+                                  style: const TextStyle(
+                                      color: ColorConst.appGreen,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
-                            );
-                          },
+                            ),
+                          ],
                         ),
+                      );
+                    },
+                  ),
+                  // const Text('Total price :')
                 ],
               ),
             ),
