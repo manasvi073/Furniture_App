@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/constant/color_const.dart';
 import 'package:furniture_app/controller/home_controller.dart';
+import 'package:furniture_app/screens/checkout_order_screen.dart';
 import 'package:get/get.dart';
 
 class CartScreen extends StatelessWidget {
@@ -52,7 +53,6 @@ class CartScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-
             Expanded(
               child: Obx(() {
                 if (homeController.cartItems.isEmpty) {
@@ -77,7 +77,6 @@ class CartScreen extends StatelessWidget {
                 );
               }),
             ),
-            // Checkout Button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: SizedBox(
@@ -90,7 +89,7 @@ class CartScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () => Get.to(() => const CheckoutOrderScreen()),
                   child: const Text(
                     "Proceed to checkout",
                     style: TextStyle(
