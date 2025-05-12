@@ -12,6 +12,7 @@ class ImageConst {
 
   static const String appSearch = '${iconPath}search_icon.png';
   static const String appListIcon = '${iconPath}listIcon.png';
+  static const String appOrderIcon = '${iconPath}truck-fast.png';
 
 // ===================== Chair Image ======================
 
