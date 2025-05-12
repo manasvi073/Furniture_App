@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:furniture_app/controller/home_controller.dart';
 import 'package:furniture_app/firebase_options.dart';
-import 'package:furniture_app/screens/checkout_order_screen.dart';
 import 'package:furniture_app/screens/login_screen.dart';
 import 'package:furniture_app/screens/onboarding_screen.dart';
 import 'package:get/get.dart';
