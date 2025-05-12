@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       title: 'Furniture App',
-      // home: user == null ? const LoginScreen() : const CheckoutOrderScreen(),
       home: user == null ? const LoginScreen() : const OnboardingScreen(),
       debugShowCheckedModeBanner: false,
     );
